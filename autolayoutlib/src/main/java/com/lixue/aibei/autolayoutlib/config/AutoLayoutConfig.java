@@ -26,7 +26,7 @@ public class AutoLayoutConfig {
     private int mDesignHeight;
     private int mScreenWidth;
     private int mScreenHeight;
-    private boolean useDeviceSize;//ÊÇ·ñÓÃÉè±¸±¾Éí³ß´ç
+    private boolean useDeviceSize;//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ß´ï¿½
 
     private AutoLayoutConfig() {
 
@@ -55,7 +55,7 @@ public class AutoLayoutConfig {
     }
 
     /**
-     * µÃµ½ÄãÔÚAndroidMenifext.xmlÎÄ¼şÖĞÅäÖÃµÄmetdataµÄÊµ¼Ê³¤ºÍ¿í*
+     * åœ¨AndroidMenifext.xmlé‡Œé¢è®¾ç½®metdataä¸ºè®¾è®¡é•¿æˆ–å®½
      */
     private void getMetaData(Context context) {
         PackageManager pm = context.getPackageManager();

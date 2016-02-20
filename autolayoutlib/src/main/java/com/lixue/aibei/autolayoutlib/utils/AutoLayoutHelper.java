@@ -7,14 +7,20 @@
  */
 package com.lixue.aibei.autolayoutlib.utils;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lixue.aibei.autolayoutlib.AutoLayoutInfo;
+import com.lixue.aibei.autolayoutlib.R;
 import com.lixue.aibei.autolayoutlib.config.AutoLayoutConfig;
 
 public class AutoLayoutHelper {
     private static final int[] LL = new int[]{
-            android.R.attr.textSize,
+            android.R.attr.textSize,//Â≠ó‰ΩìÂ∞∫ÂØ∏
             android.R.attr.padding,//
             android.R.attr.paddingLeft,//
             android.R.attr.paddingTop,//
@@ -63,7 +69,7 @@ public class AutoLayoutHelper {
     }
 
     /**
-     * ≥ı ºªØ≈‰÷√
+     * ÂàùÂßãÂåñÈÖçÁΩÆ
      * *
      */
     private void initAutoLayoutConfig(ViewGroup host) {
@@ -77,16 +83,47 @@ public class AutoLayoutHelper {
         for (int i = 0, n = mHost.getChildCount(); i < n; i++) {
             View view = mHost.getChildAt(i);
             ViewGroup.LayoutParams params = view.getLayoutParams();
-//
-//            if (params instanceof AutoLayoutParams) {
-//                AutoLayoutConfig info =
-//                        ((AutoLayoutParams) params).getAutoLayoutInfo();
-//                if (info != null) {
-//                    info.fillAttrs(view);
-//                }
-//            }
+
+            if (params instanceof AutoLayoutParams) {
+                AutoLayoutInfo info = ((AutoLayoutParams) params).getAutoLayoutInfo();
+                if (info != null) {
+                    info.fillAttrs(view);
+                }
+            }
         }
 
     }
 
+    public static AutoLayoutInfo getAutoLayoutInfo(Context context,AttributeSet attributeSet){
+        AutoLayoutInfo layoutInfo = new AutoLayoutInfo();
+        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.AutoLayout_Layout);
+        int baseWidth = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 0);
+        int baseHeight = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_baseheight, 0);
+        typedArray.recycle();
+
+        TypedArray array = context.obtainStyledAttributes(attributeSet, LL);
+
+        int n = array.getIndexCount();
+
+        for (int i = 0;i < n;i ++){
+            int index = array.getIndex(i);
+            if (!isPxVal(array.peekValue(index))) continue;
+        }
+        return null;
+    }
+
+    private static boolean isPxVal(TypedValue value){
+        if (value != null && value.type == value.TYPE_DIMENSION && getComplexUnit(value.data) == TypedValue.COMPLEX_UNIT_PX){
+            return true;
+        }
+        return false;
+    }
+
+    private static int getComplexUnit(int data){
+        return TypedValue.COMPLEX_UNIT_MASK & (data >> TypedValue.COMPLEX_UNIT_SHIFT);
+    }
+
+    public interface AutoLayoutParams {
+        AutoLayoutInfo getAutoLayoutInfo();
+    }
 }

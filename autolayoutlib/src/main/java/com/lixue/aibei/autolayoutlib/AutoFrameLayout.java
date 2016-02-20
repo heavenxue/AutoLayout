@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.lixue.aibei.autolayoutlib.utils.AutoLayoutHelper;
+
 /**
  * Created by Administrator on 2015/12/31.
  */

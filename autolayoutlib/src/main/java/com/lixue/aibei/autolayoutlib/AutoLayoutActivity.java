@@ -19,11 +19,11 @@ public class AutoLayoutActivity extends AppCompatActivity {
         }
 
         if (name.equals(LAYOUT_LINEARLAYOUT)) {
-            view = new AutoLinearLayout(context, attrs);
+//            view = new AutoLinearLayout(context, attrs);
         }
 
         if (name.equals(LAYOUT_RELATIVELAYOUT)) {
-            view = new AutoRelativeLayout(context, attrs);
+//            view = new AutoRelativeLayout(context, attrs);
         }
 
         if (view != null) return view;

@@ -12,7 +12,7 @@ import android.util.Log;
 
 /**
  * Created by Administrator on 2016/2/18.
- * 日志公共类
+ * 鏃ュ織鎵撳嵃
  */
 public class L {
     public static boolean debug = false;
