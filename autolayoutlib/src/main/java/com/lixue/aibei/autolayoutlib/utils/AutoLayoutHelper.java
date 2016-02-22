@@ -16,6 +16,23 @@ import android.view.ViewGroup;
 
 import com.lixue.aibei.autolayoutlib.AutoLayoutInfo;
 import com.lixue.aibei.autolayoutlib.R;
+import com.lixue.aibei.autolayoutlib.attr.HeightAttr;
+import com.lixue.aibei.autolayoutlib.attr.MarginAttr;
+import com.lixue.aibei.autolayoutlib.attr.MarginBottomAttr;
+import com.lixue.aibei.autolayoutlib.attr.MarginLeftAttr;
+import com.lixue.aibei.autolayoutlib.attr.MarginRightAttr;
+import com.lixue.aibei.autolayoutlib.attr.MarginTopAttr;
+import com.lixue.aibei.autolayoutlib.attr.MaxHeightAttr;
+import com.lixue.aibei.autolayoutlib.attr.MaxWidthAttr;
+import com.lixue.aibei.autolayoutlib.attr.MinHeightAttr;
+import com.lixue.aibei.autolayoutlib.attr.MinWidthAttr;
+import com.lixue.aibei.autolayoutlib.attr.PaddingAttr;
+import com.lixue.aibei.autolayoutlib.attr.PaddingBottomAttr;
+import com.lixue.aibei.autolayoutlib.attr.PaddingLeftAttr;
+import com.lixue.aibei.autolayoutlib.attr.PaddingRightAttr;
+import com.lixue.aibei.autolayoutlib.attr.PaddingTopAttr;
+import com.lixue.aibei.autolayoutlib.attr.TextSizeAttr;
+import com.lixue.aibei.autolayoutlib.attr.WidthAttr;
 import com.lixue.aibei.autolayoutlib.config.AutoLayoutConfig;
 
 public class AutoLayoutHelper {
@@ -68,6 +85,109 @@ public class AutoLayoutHelper {
         }
     }
 
+    public static AutoLayoutInfo getAutoLayoutInfo(Context context, AttributeSet attributeSet) {
+        AutoLayoutInfo layoutInfo = new AutoLayoutInfo();
+        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.AutoLayout_Layout);
+        int baseWidth = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 0);
+        int baseHeight = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_baseheight, 0);
+        typedArray.recycle();
+
+        TypedArray array = context.obtainStyledAttributes(attributeSet, LL);
+
+        int n = array.getIndexCount();
+
+        for (int i = 0; i < n; i++) {
+            int index = array.getIndex(i);
+            if (!isPxVal(array.peekValue(index))) continue;
+
+            int pxVal = 0;
+            pxVal = array.getDimensionPixelOffset(index, 0);
+
+            switch (index) {
+                case INDEX_TEXT_SIZE:
+                    layoutInfo.addAttr(new TextSizeAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_PADDING:
+                    layoutInfo.addAttr(new PaddingAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_PADDING_LEFT:
+                    layoutInfo.addAttr(new PaddingLeftAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_PADDING_TOP:
+                    layoutInfo.addAttr(new PaddingTopAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_PADDING_RIGHT:
+                    layoutInfo.addAttr(new PaddingRightAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_PADDING_BOTTOM:
+                    layoutInfo.addAttr(new PaddingBottomAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_WIDTH:
+                    layoutInfo.addAttr(new WidthAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_HEIGHT:
+                    layoutInfo.addAttr(new HeightAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MARGIN:
+                    layoutInfo.addAttr(new MarginAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MARGIN_LEFT:
+                    layoutInfo.addAttr(new MarginLeftAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MARGIN_TOP:
+                    layoutInfo.addAttr(new MarginTopAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MARGIN_RIGHT:
+                    layoutInfo.addAttr(new MarginRightAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MARGIN_BOTTOM:
+                    layoutInfo.addAttr(new MarginBottomAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MAX_WIDTH:
+                    layoutInfo.addAttr(new MaxWidthAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MAX_HEIGHT:
+                    layoutInfo.addAttr(new MaxHeightAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MIN_WIDTH:
+                    layoutInfo.addAttr(new MinWidthAttr(pxVal, baseWidth, baseHeight));
+                    break;
+                case INDEX_MIN_HEIGHT:
+                    layoutInfo.addAttr(new MinHeightAttr(pxVal, baseWidth, baseHeight));
+                    break;
+            }
+        }
+
+        array.recycle();
+        L.e(" getAutoLayoutInfo " + layoutInfo.toString());
+        return layoutInfo;
+    }
+
+    /**
+     * 单位是否是像素*
+     */
+    private static boolean isPxVal(TypedValue value) {
+        if (value != null && value.type == value.TYPE_DIMENSION && getComplexUnit(value.data) == TypedValue.COMPLEX_UNIT_PX) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * (data>>COMPLEX_UNIT_SHIFT)&COMPLEX_UNIT_MASK的作用是将该int值与上0xf，以获取其最低4位，这4位是单位。*
+     */
+    private static int getComplexUnit(int data) {
+        return TypedValue.COMPLEX_UNIT_MASK & (data >> TypedValue.COMPLEX_UNIT_SHIFT);
+    }
+
+    /**通过传入一个带有单位的数值，看是否像素单位**/
+    private static boolean isPxVal(String val) {
+        if (val.endsWith("px")) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 初始化配置
      * *
@@ -92,35 +212,6 @@ public class AutoLayoutHelper {
             }
         }
 
-    }
-
-    public static AutoLayoutInfo getAutoLayoutInfo(Context context,AttributeSet attributeSet){
-        AutoLayoutInfo layoutInfo = new AutoLayoutInfo();
-        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.AutoLayout_Layout);
-        int baseWidth = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 0);
-        int baseHeight = typedArray.getInt(R.styleable.AutoLayout_Layout_layout_auto_baseheight, 0);
-        typedArray.recycle();
-
-        TypedArray array = context.obtainStyledAttributes(attributeSet, LL);
-
-        int n = array.getIndexCount();
-
-        for (int i = 0;i < n;i ++){
-            int index = array.getIndex(i);
-            if (!isPxVal(array.peekValue(index))) continue;
-        }
-        return null;
-    }
-
-    private static boolean isPxVal(TypedValue value){
-        if (value != null && value.type == value.TYPE_DIMENSION && getComplexUnit(value.data) == TypedValue.COMPLEX_UNIT_PX){
-            return true;
-        }
-        return false;
-    }
-
-    private static int getComplexUnit(int data){
-        return TypedValue.COMPLEX_UNIT_MASK & (data >> TypedValue.COMPLEX_UNIT_SHIFT);
     }
 
     public interface AutoLayoutParams {
