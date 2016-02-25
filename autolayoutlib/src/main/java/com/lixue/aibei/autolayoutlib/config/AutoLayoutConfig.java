@@ -26,7 +26,7 @@ public class AutoLayoutConfig {
     private int mDesignHeight;
     private int mScreenWidth;
     private int mScreenHeight;
-    private boolean useDeviceSize;//�Ƿ����豸����ߴ�
+    private boolean useDeviceSize;
 
     private AutoLayoutConfig() {
 

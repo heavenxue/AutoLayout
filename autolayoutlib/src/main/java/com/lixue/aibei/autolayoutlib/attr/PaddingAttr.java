@@ -31,6 +31,18 @@ public class PaddingAttr extends AutoAttr {
 
     @Override
     protected void execute(View view, int val) {
+        view.setPadding(val, val, val, val);
+    }
 
+    @Override
+    public void apply(View view) {
+        int l, t, r, b;
+        if (useDefault()) {
+            l = r = getPercentWidthSize();
+            t = b = getPercentHeightSize();
+            view.setPadding(l, t, r, b);
+            return;
+        }
+        super.apply(view);
     }
 }

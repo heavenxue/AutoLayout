@@ -39,6 +39,7 @@ public class AutoRelativeLayout extends RelativeLayout{
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        /**如果不加isInEditMode,可导致可视化编辑报错**/
         if (!isInEditMode())
             helper.adjustChildren();
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -69,6 +70,7 @@ public class AutoRelativeLayout extends RelativeLayout{
             super(source);
         }
 
+        @TargetApi(Build.VERSION_CODES.KITKAT)
         public LayoutParams(RelativeLayout.LayoutParams source) {
             super(source);
         }

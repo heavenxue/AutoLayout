@@ -1,66 +1,74 @@
 package com.lixue.aibei.autolayout;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
-import android.widget.TextView;
+
+import com.lixue.aibei.autolayout.fragment.ListFragment;
+import com.lixue.aibei.autolayout.fragment.RegisterFragment;
+import com.lixue.aibei.autolayoutlib.AutoLayoutActivity;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
-    private TextView textView;
+public class MainActivity extends AutoLayoutActivity {
+    private ViewPager mViewPager;
 
-    public int sp2dp2(float spVal){
-             return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal,getResources().getDisplayMetrics());
-        }
-
-    public float sp2dp1(float pxVal){
-        //scale是一个约等数，接近密度
-        float scale = getResources().getDisplayMetrics().density;
-        // 方法1 Android获得屏幕的宽和高
-        WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        int screenWidth = screenWidth = display.getWidth();
-        int screenHeight = screenHeight = display.getHeight();
-
-        Log.d("sp2dp1","scale:" + scale );
-        Log.d("screen","屏幕的分辨率，宽："+ screenWidth + ",高:" + screenHeight);
-        return  (pxVal /scale + 0.5f * (pxVal >= 0 ? 1:-1));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setImmersionStatus();
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.tv_show);
-        textView.setText("100px转换为dp(第一种方法):" + sp2dp1(100) + "\n" +"第二种方法:" +sp2dp2(100));
 
+        initView();
+        initDatas();
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void setImmersionStatus(){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void initView(){
+        mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void initDatas(){
+        ArrayList<Fragment> mList = new ArrayList<Fragment>();
+        mList.add(new ListFragment());
+        mList.add(new RegisterFragment());
+//        mList.add(new PayFragment());
+//        mList.add(new RecyclerViewFragment());
+        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager(), mList));
+    }
+
+    public class MyAdapter extends FragmentPagerAdapter {
+        ArrayList<Fragment> tabs = null;
+
+        public MyAdapter(FragmentManager fm, ArrayList<Fragment> tabs) {
+            super(fm);
+            this.tabs = tabs;
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        public Fragment getItem(int pos) {
+            return tabs.get(pos);
+        }
+
+        @Override
+        public int getCount() {
+            return tabs.size();
+        }
     }
+
 }

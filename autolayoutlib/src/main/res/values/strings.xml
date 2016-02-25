@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">AutoLayoutLib</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_auto_layout">AutoLayoutActivity</string>
 </resources>

@@ -25,7 +25,7 @@ public class PaddingTopAttr extends AutoAttr {
 
     @Override
     protected boolean defaultBaseWidth() {
-        return true;
+        return false;
     }
 
     @Override
