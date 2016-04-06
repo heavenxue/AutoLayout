@@ -35,6 +35,7 @@ public class AutoLinearLayout extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        /**解决可视化编辑器无法识别自定义控件的问题 **/
         if (!isInEditMode())
             mHelper.adjustChildren();
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

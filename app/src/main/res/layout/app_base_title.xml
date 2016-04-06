@@ -34,7 +34,6 @@
         android:text="中间文字"
         android:textColor="@android:color/white"
         android:textSize="51px"
-        android:padding="0px"
         />
 
     <ImageView

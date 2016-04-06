@@ -24,7 +24,6 @@
         android:layout_marginTop="60px"
         android:text="刘小新"
         android:textSize="48px"
-        android:padding="0px"
         />
 
     <TextView
@@ -36,7 +35,6 @@
         android:text="消客:566人"
         android:textColor="#656565"
         android:textSize="40px"
-        android:padding="0px"
         />
 
     <TextView
@@ -48,7 +46,6 @@
         android:text="手机:15511223564"
         android:textColor="#656565"
         android:textSize="38px"
-        android:padding="0px"
         />
 
     <TextView
@@ -60,7 +57,6 @@
         android:text="销售:￥8，653.00"
         android:textColor="#656565"
         android:textSize="38px"
-        android:padding="0px"
         />
 
 </RelativeLayout>

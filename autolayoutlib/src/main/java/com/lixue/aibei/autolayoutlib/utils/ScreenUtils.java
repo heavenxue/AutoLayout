@@ -24,6 +24,7 @@ public class ScreenUtils {
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display dp = wm.getDefaultDisplay();
+        /**得到屏幕密度**/
         DisplayMetrics displayMetrics = new DisplayMetrics();
         dp.getMetrics(displayMetrics);
         //since SDK_INT = 1 ;
@@ -37,24 +38,20 @@ public class ScreenUtils {
 
         //incluedes window decorations(statusbar/menubar)
         if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT <17){
-            try
-            {
+            try {
                 widthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(dp);
                 heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(dp);
-            } catch (Exception ignored)
-            {
+            } catch (Exception ignored) {
             }
         }
         // includes window decorations (statusbar bar/menu bar)
         if (Build.VERSION.SDK_INT >= 17)
-            try
-            {
+            try {
                 Point realSize = new Point();
                 Display.class.getMethod("getRealSize", Point.class).invoke(dp, realSize);
                 widthPixels = realSize.x;
                 heightPixels = realSize.y;
-            } catch (Exception ignored)
-            {
+            } catch (Exception ignored) {
             }
         size[0] = widthPixels;
         size[1] = heightPixels;

@@ -96,7 +96,6 @@
             android:text="获取验证码"
             android:textColor="@android:color/white"
             android:textSize="40px"
-            android:padding="0px"
             />
     </LinearLayout>
 
@@ -182,7 +181,6 @@
         android:text="完成注册"
         android:textColor="@android:color/white"
         android:textSize="49px"
-        android:padding="0px"
         />
 
 </LinearLayout>

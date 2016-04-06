@@ -8,11 +8,9 @@
 
 package com.lixue.aibei.autolayoutlib.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,30 +31,18 @@ public class MetroLayout extends ViewGroup {
     private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
     private List<MetroBlock> mAvailablePos = new ArrayList<>();
     private int mDivider;
-
-    public MetroLayout(Context context) {
-        super(context);
-    }
-
     public MetroLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MetroLayout);
         mDivider = a.getDimensionPixelOffset(R.styleable.MetroLayout_metro_divider, 0);
         mDivider = AutoUtils.getPercentWidthSizeBigger(mDivider);
         a.recycle();
-    }
 
-    public MetroLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MetroLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
         if (true)
             randomColor();
 
@@ -65,10 +51,22 @@ public class MetroLayout extends ViewGroup {
 
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    }
+
+    private void randomColor() {
+        Random r = new Random(255);
+
+        for (int i = 0, n = getChildCount(); i < n; i++) {
+            View v = getChildAt(i);
+
+            v.setBackgroundColor(Color.argb(100, r.nextInt(), r.nextInt(), r.nextInt()));
+        }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
         initAvailablePosition();
 
         int left = 0;
@@ -161,20 +159,15 @@ public class MetroLayout extends ViewGroup {
         return minHeightPos;
     }
 
-
     @Override
     public MetroLayout.LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new LayoutParams(getContext(), attrs);
     }
 
-    private void randomColor() {
-        Random r = new Random(255);
-
-        for (int i = 0, n = getChildCount(); i < n; i++) {
-            View v = getChildAt(i);
-
-            v.setBackgroundColor(Color.argb(100, r.nextInt(), r.nextInt(), r.nextInt()));
-        }
+    private static class MetroBlock {
+        int left;
+        int top;
+        int width;
     }
 
     public static class LayoutParams extends ViewGroup.MarginLayoutParams
@@ -208,12 +201,5 @@ public class MetroLayout extends ViewGroup {
             return mAutoLayoutInfo;
         }
 
-
-    }
-
-    private static class MetroBlock {
-        int left;
-        int top;
-        int width;
     }
 }

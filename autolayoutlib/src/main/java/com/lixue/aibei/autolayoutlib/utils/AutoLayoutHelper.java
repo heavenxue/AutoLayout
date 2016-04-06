@@ -10,7 +10,6 @@ package com.lixue.aibei.autolayoutlib.utils;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,22 +37,22 @@ import com.lixue.aibei.autolayoutlib.config.AutoLayoutConfig;
 public class AutoLayoutHelper {
     private static final int[] LL = new int[]{
             android.R.attr.textSize,//字体尺寸
-            android.R.attr.padding,//
-            android.R.attr.paddingLeft,//
-            android.R.attr.paddingTop,//
-            android.R.attr.paddingRight,//
-            android.R.attr.paddingBottom,//
-            android.R.attr.layout_width,//
-            android.R.attr.layout_height,//
-            android.R.attr.layout_margin,//
-            android.R.attr.layout_marginLeft,//
-            android.R.attr.layout_marginTop,//
-            android.R.attr.layout_marginRight,//
-            android.R.attr.layout_marginBottom,//
-            android.R.attr.maxWidth,//
-            android.R.attr.maxHeight,//
-            android.R.attr.minWidth,//
-            android.R.attr.minHeight,//16843072
+            android.R.attr.padding,//间距
+            android.R.attr.paddingLeft,//左间距
+            android.R.attr.paddingTop,//上间距
+            android.R.attr.paddingRight,//右间距
+            android.R.attr.paddingBottom,//下间距
+            android.R.attr.layout_width,//宽度
+            android.R.attr.layout_height,//高度
+            android.R.attr.layout_margin,//外间距
+            android.R.attr.layout_marginLeft,//左外间距
+            android.R.attr.layout_marginTop,//上外间距
+            android.R.attr.layout_marginRight,//右外间距
+            android.R.attr.layout_marginBottom,//下外间距
+            android.R.attr.maxWidth,//最大宽
+            android.R.attr.maxHeight,//最大高
+            android.R.attr.minWidth,//最小宽
+            android.R.attr.minHeight,//最小高
     };
     private static final int INDEX_TEXT_SIZE = 0;
     private static final int INDEX_PADDING = 1;
@@ -94,12 +93,11 @@ public class AutoLayoutHelper {
 
         TypedArray array = context.obtainStyledAttributes(attributeSet, LL);
 
-        int n = array.getIndexCount();
+        int n = array.getIndexCount();//所有的属性总数
 
         for (int i = 0; i < n; i++) {
             int index = array.getIndex(i);
-            if (!isPxVal(array.peekValue(index))) continue;
-
+            if (!DimenUtils.isPxVal(array.peekValue(index))) continue;
             int pxVal = 0;
             pxVal = array.getDimensionPixelOffset(index, 0);
 
@@ -163,23 +161,6 @@ public class AutoLayoutHelper {
         return layoutInfo;
     }
 
-    /**
-     * 单位是否是像素*
-     */
-    private static boolean isPxVal(TypedValue value) {
-        if (value != null && value.type == value.TYPE_DIMENSION && getComplexUnit(value.data) == TypedValue.COMPLEX_UNIT_PX) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * (data>>COMPLEX_UNIT_SHIFT)&COMPLEX_UNIT_MASK的作用是将该int值与上0xf，以获取其最低4位，这4位是单位。*
-     */
-    private static int getComplexUnit(int data) {
-        return TypedValue.COMPLEX_UNIT_MASK & (data >> TypedValue.COMPLEX_UNIT_SHIFT);
-    }
-
     /**通过传入一个带有单位的数值，看是否像素单位**/
     private static boolean isPxVal(String val) {
         if (val.endsWith("px")) {
@@ -197,6 +178,7 @@ public class AutoLayoutHelper {
         mAutoLayoutConifg.init(mHost.getContext());
     }
 
+    /**重新计算children所需要的尺寸位置大小**/
     public void adjustChildren() {
         AutoLayoutConfig.getInstance().checkPrams();
 
@@ -211,7 +193,6 @@ public class AutoLayoutHelper {
                 }
             }
         }
-
     }
 
     public interface AutoLayoutParams {

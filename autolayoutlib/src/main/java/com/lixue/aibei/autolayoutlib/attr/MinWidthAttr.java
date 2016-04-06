@@ -8,9 +8,10 @@
 
 package com.lixue.aibei.autolayoutlib.attr;
 
+import android.os.Build;
 import android.view.View;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 /**
  * Created by Administrator on 2016/2/22.
@@ -33,9 +34,39 @@ public class MinWidthAttr extends AutoAttr {
     @Override
     protected void execute(View view, int val) {
         try {
-            Method setMaxWidthMethod = view.getClass().getMethod("setMinWidth", int.class);
-            setMaxWidthMethod.invoke(view, val);
+            view.setMinimumWidth(val);
+//            Method setMaxWidthMethod = view.getClass().getMethod("setMinWidth", int.class);
+//            setMaxWidthMethod.invoke(view, val);
         } catch (Exception ignore) {
         }
+    }
+
+    public static int getMinWidth(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            return view.getMinimumWidth();
+        try {
+            Field minWidth = view.getClass().getField("mMinWidth");
+            minWidth.setAccessible(true);
+            return (int) minWidth.get(view);
+        } catch (Exception ignore) {
+        }
+        return 0;
+    }
+
+
+    public static MinWidthAttr generate(int val, int baseFlag) {
+        MinWidthAttr attr = null;
+        switch (baseFlag) {
+            case AutoAttr.BASE_WIDTH:
+                attr = new MinWidthAttr(val, Attrs.MIN_WIDTH, 0);
+                break;
+            case AutoAttr.BASE_HEIGHT:
+                attr = new MinWidthAttr(val, 0, Attrs.MIN_WIDTH);
+                break;
+            case AutoAttr.BASE_DEFAULT:
+                attr = new MinWidthAttr(val, 0, 0);
+                break;
+        }
+        return attr;
     }
 }

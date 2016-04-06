@@ -17,6 +17,10 @@ import com.lixue.aibei.autolayoutlib.utils.L;
  * Created by Administrator on 2016/2/19.
  */
 public abstract class AutoAttr {
+    public static final int BASE_WIDTH = 1;
+    public static final int BASE_HEIGHT = 2;
+    public static final int BASE_DEFAULT = 3;
+
     protected int pxVal;
     protected int baseWidth;
     protected int baseHeight;
@@ -50,8 +54,9 @@ public abstract class AutoAttr {
                 L.e(" baseHeight val= " + val);
             }
         }
-
-        val = Math.max(val, 1);//for very thin divider
+        if (val > 0){
+            val = Math.max(val, 1);//for very thin divider
+        }
         execute(view, val);
     }
 
@@ -73,7 +78,7 @@ public abstract class AutoAttr {
     }
 
     protected boolean contains(int baseVal, int flag) {
-        /**0&0=0;   0&1=0;    1&0=0;     1&1=1;如果其中一个为0则true**/
+        /**0&0=0;   0&1=0;    1&0=0;     1&1=1;不为0则true,为0则false**/
         return (baseVal & flag) != 0;
     }
 

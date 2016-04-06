@@ -8,7 +8,9 @@
 
 package com.lixue.aibei.autolayoutlib.attr;
 
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by Administrator on 2016/2/22.
@@ -31,18 +33,26 @@ public class TextSizeAttr extends AutoAttr{
 
     @Override
     protected void execute(View view, int val) {
-        view.setPadding(val,val,val,val);
+        if (!(view instanceof TextView))
+            return;
+        ((TextView) view).setIncludeFontPadding(false);
+        ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, val);
     }
 
-    @Override
-    public void apply(View view) {
-        int l,t,r,b;
-        if (useDefault()){
-            l = r = getPercentWidthSize();
-            t = b = getPercentHeightSize();
-            view.setPadding(l,t,r,b);
-            return;
+    public static TextSizeAttr generate(int val, int baseFlag) {
+        TextSizeAttr attr = null;
+        switch (baseFlag) {
+            case AutoAttr.BASE_WIDTH:
+                attr = new TextSizeAttr(val, Attrs.TEXTSIZE, 0);
+                break;
+            case AutoAttr.BASE_HEIGHT:
+                attr = new TextSizeAttr(val, 0, Attrs.TEXTSIZE);
+                break;
+            case AutoAttr.BASE_DEFAULT:
+                attr = new TextSizeAttr(val, 0, 0);
+                break;
         }
-        super.apply(view);
+        return attr;
     }
+
 }

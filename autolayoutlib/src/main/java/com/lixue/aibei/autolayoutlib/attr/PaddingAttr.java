@@ -10,6 +10,8 @@ package com.lixue.aibei.autolayoutlib.attr;
 
 import android.view.View;
 
+import com.lixue.aibei.autolayoutlib.utils.AutoUtils;
+
 /**
  * Created by Administrator on 2016/2/22.
  */
@@ -42,6 +44,8 @@ public class PaddingAttr extends AutoAttr {
             t = b = getPercentHeightSize();
             view.setPadding(l, t, r, b);
             return;
+        }else{
+            AutoUtils.autoPadding(view);
         }
         super.apply(view);
     }

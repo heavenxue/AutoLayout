@@ -36,4 +36,20 @@ public class PaddingRightAttr extends AutoAttr {
         int b = view.getPaddingBottom();
         view.setPadding(l,t,r,b);
     }
+
+    public static PaddingRightAttr generate(int val, int baseFlag) {
+        PaddingRightAttr attr = null;
+        switch (baseFlag) {
+            case AutoAttr.BASE_WIDTH:
+                attr = new PaddingRightAttr(val, Attrs.PADDING_RIGHT, 0);
+                break;
+            case AutoAttr.BASE_HEIGHT:
+                attr = new PaddingRightAttr(val, 0, Attrs.PADDING_RIGHT);
+                break;
+            case AutoAttr.BASE_DEFAULT:
+                attr = new PaddingRightAttr(val, 0, 0);
+                break;
+        }
+        return attr;
+    }
 }
