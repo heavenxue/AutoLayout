@@ -8,7 +8,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 
+import com.lixue.aibei.autolayout.fragment.CategoryFragment;
 import com.lixue.aibei.autolayout.fragment.ListFragment;
+import com.lixue.aibei.autolayout.fragment.PayFragment;
+import com.lixue.aibei.autolayout.fragment.RecyclerViewFragment;
+import com.lixue.aibei.autolayout.fragment.RecyclerViewGridFragment;
 import com.lixue.aibei.autolayout.fragment.RegisterFragment;
 import com.lixue.aibei.autolayoutlib.AutoLayoutActivity;
 
@@ -47,8 +51,10 @@ public class MainActivity extends AutoLayoutActivity {
         ArrayList<Fragment> mList = new ArrayList<Fragment>();
         mList.add(new ListFragment());
         mList.add(new RegisterFragment());
-//        mList.add(new PayFragment());
-//        mList.add(new RecyclerViewFragment());
+        mList.add(new PayFragment());
+        mList.add(new RecyclerViewFragment());
+        mList.add(new RecyclerViewGridFragment());
+        mList.add(new CategoryFragment());
         mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager(), mList));
     }
 

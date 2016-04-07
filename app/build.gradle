@@ -23,4 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile project(':autolayoutlib')
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.lixue.aibei:slidingtitlebarlib:1.0'
 }

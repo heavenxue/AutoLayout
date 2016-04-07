@@ -9,9 +9,11 @@
 package com.lixue.aibei.autolayoutlib.utils;
 
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.lixue.aibei.autolayoutlib.AutoLayoutInfo;
 import com.lixue.aibei.autolayoutlib.R;
+import com.lixue.aibei.autolayoutlib.attr.Attrs;
+import com.lixue.aibei.autolayoutlib.attr.AutoAttr;
 import com.lixue.aibei.autolayoutlib.config.AutoLayoutConfig;
 
 /**
@@ -29,63 +31,54 @@ public class AutoUtils {
         autoMargin(view);
     }
 
+    /**
+     * @param view
+     * @param attrs #Attrs.WIDTH|Attrs.HEIGHT
+     * @param base  AutoAttr.BASE_WIDTH|AutoAttr.BASE_HEIGHT|AutoAttr.BASE_DEFAULT
+     */
+    public static void auto(View view, int attrs, int base) {
+        AutoLayoutInfo autoLayoutInfo = AutoLayoutInfo.getAttrFromView(view, attrs, base);
+        if (autoLayoutInfo != null)
+            autoLayoutInfo.fillAttrs(view);
+    }
+
+    public static void autoTextSize(View view) {
+        auto(view, Attrs.TEXTSIZE, AutoAttr.BASE_DEFAULT);
+    }
+
+    public static void autoTextSize(View view, int base) {
+        auto(view, Attrs.TEXTSIZE, base);
+    }
+
     public static void autoMargin(View view) {
-        if (!(view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams))
-            return;
+        auto(view, Attrs.MARGIN, AutoAttr.BASE_DEFAULT);
+    }
 
-        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        if (lp == null) return;
-
-        Object tag = view.getTag(R.id.id_tag_autolayout_margin);
-        if (tag != null) return;
-        view.setTag(R.id.id_tag_autolayout_margin, "Just Identify");
-
-        lp.leftMargin = getPercentWidthSize(lp.leftMargin);
-        lp.topMargin = getPercentHeightSize(lp.topMargin);
-        lp.rightMargin = getPercentWidthSize(lp.rightMargin);
-        lp.bottomMargin = getPercentHeightSize(lp.bottomMargin);
-
+    public static void autoMargin(View view, int base) {
+        auto(view, Attrs.MARGIN, base);
     }
 
     public static void autoPadding(View view) {
-        Object tag = view.getTag(R.id.id_tag_autolayout_padding);
-        if (tag != null) return;
-        view.setTag(R.id.id_tag_autolayout_padding, "Just Identify");
+        auto(view, Attrs.PADDING, AutoAttr.BASE_DEFAULT);
+    }
 
-        int l = view.getPaddingLeft();
-        int t = view.getPaddingTop();
-        int r = view.getPaddingRight();
-        int b = view.getPaddingBottom();
-
-        l = getPercentWidthSize(l);
-        t = getPercentHeightSize(t);
-        r = getPercentWidthSize(r);
-        b = getPercentHeightSize(b);
-
-        view.setPadding(l, t, r, b);
+    public static void autoPadding(View view, int base) {
+        auto(view, Attrs.PADDING, base);
     }
 
     public static void autoSize(View view) {
-        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        auto(view, Attrs.WIDTH | Attrs.HEIGHT, AutoAttr.BASE_DEFAULT);
+    }
 
-        if (lp == null) return;
+    public static void autoSize(View view, int base) {
+        auto(view, Attrs.WIDTH | Attrs.HEIGHT, base);
+    }
 
+    public static boolean autoed(View view) {
         Object tag = view.getTag(R.id.id_tag_autolayout_size);
-        if (tag != null) return;
-
+        if (tag != null) return true;
         view.setTag(R.id.id_tag_autolayout_size, "Just Identify");
-
-        if (lp.width > 0) {
-            int screenWidth = AutoLayoutConfig.getInstance().getScreenWidth();
-            int designWidth = AutoLayoutConfig.getInstance().getDesignWidth();
-            lp.width = (int) (lp.width * 1.0f / designWidth * screenWidth);
-        }
-
-        if (lp.height > 0) {
-            int screenHeight = AutoLayoutConfig.getInstance().getScreenHeight();
-            int designHeight = AutoLayoutConfig.getInstance().getDesignHeight();
-            lp.height = (int) (lp.height * 1.0f / designHeight * screenHeight);
-        }
+        return false;
     }
 
     public static int getPercentWidthSize(int val) {

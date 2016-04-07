@@ -8,5 +8,6 @@
     <color name="deep_gray">#666666</color>
     <color name="textredcolor">#f31216</color>
     <color name="activitybg">#f3f3f3</color>
-
+    <color name="theme">#ff00bfff</color>
+    <color name="transparent">#00000000</color>
 </resources>
