@@ -23,8 +23,8 @@ Android屏幕适配方案，直接填写设计图上的像素尺寸即可完成�
     还有很多好处，比如上面的Item里面元素比较多，如果标识的比较全面，一个FrameLayout，里面的View填写各种marginLeft,marginTop就能完美实现，几乎不需要嵌套了。
     
 # 用法
-     ## 第一步
-     在你的项目的AndroidManifest中注明你的设计稿的尺寸。
+## 第一步
+在你的项目的AndroidManifest中注明你的设计稿的尺寸。
     <meta-data android:name="design_width" android:value="768">
     </meta-data>
     <meta-data android:name="design_height" android:value="1280">
@@ -33,20 +33,20 @@ Android屏幕适配方案，直接填写设计图上的像素尺寸即可完成�
     让你的Activity继承自AutoLayoutActivity.
     
     非常简单的两个步骤，你就可以开始愉快的编写布局了，详细可以参考sample。
-    ## 第三步
-    如果你不希望继承AutoLayoutActivity，可以在编写布局文件时，将
+## 第三步
+如果你不希望继承AutoLayoutActivity，可以在编写布局文件时，将
     
     LinearLayout -> AutoLinearLayout
     RelativeLayout -> AutoRelativeLayout
     FrameLayout -> AutoFrameLayout
     这样也可以完成适配。
 # 支持的属性
-    * layout_width
-    * layout_height
-    * layout_margin(left,top,right,bottom)
-    * pading(left,top,right,bottom)
-    * textSize
-    * maxWidth, minWidth, maxHeight, minHeight
+* layout_width
+* layout_height
+* layout_margin(left,top,right,bottom)
+* pading(left,top,right,bottom)
+* textSize
+* maxWidth, minWidth, maxHeight, minHeight
 # 配置
 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，如果你希望拿设备的物理高度进行百分比化：
 
