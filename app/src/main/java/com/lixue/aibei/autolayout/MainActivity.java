@@ -1,11 +1,13 @@
 package com.lixue.aibei.autolayout;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.view.WindowManager;
 
 import com.lixue.aibei.autolayout.fragment.ListFragment;
@@ -13,7 +15,9 @@ import com.lixue.aibei.autolayout.fragment.PayFragment;
 import com.lixue.aibei.autolayout.fragment.RecyclerViewFragment;
 import com.lixue.aibei.autolayout.fragment.RecyclerViewGridFragment;
 import com.lixue.aibei.autolayout.fragment.RegisterFragment;
+import com.lixue.aibei.autolayoutlib.AutoFrameLayout;
 import com.lixue.aibei.autolayoutlib.AutoLayoutActivity;
+import com.lixue.aibei.autolayoutlib.utils.AutoLayoutHelper;
 
 import java.util.ArrayList;
 
