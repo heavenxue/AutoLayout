@@ -29,10 +29,10 @@ Android屏幕适配方案，直接填写设计图上的像素尺寸即可完成�
     </meta-data>
     <meta-data android:name="design_height" android:value="1280">
     </meta-data>
-    ## 第二步
+## 第二步
     让你的Activity继承自AutoLayoutActivity.
     
-    非常简单的两个步骤，你就可以开始愉快的编写布局了，详细可以参考sample。
+    非常简单的两个步骤，你就可以开始愉快的编写布局了，详细可以参考demo(app)。
 ## 第三步
 如果你不希望继承AutoLayoutActivity，可以在编写布局文件时，将
     
