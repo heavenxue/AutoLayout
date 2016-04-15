@@ -6,16 +6,6 @@
                 android:background="@color/btn_bg"
     >
 
-    <TextView
-        android:id="@+id/title_lefttextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical"
-        android:text="左侧文字"
-        android:textColor="@android:color/white"
-        android:textSize="52sp"
-        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/title_leftimageview"
@@ -36,34 +26,17 @@
         android:textSize="51px"
         />
 
-    <ImageView
-        android:id="@+id/title_centerimageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_launcher"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/title_righttextview"
+    <Button
+        android:id="@+id/title_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:text="右侧文字"
+        android:layout_marginRight="20px"
+        android:text="next"
         android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
         android:textSize="52px"
-        android:visibility="gone"
         />
-
-    <ImageView
-        android:id="@+id/title_rightimageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_launcher"
-        android:visibility="gone" />
 
 </RelativeLayout>

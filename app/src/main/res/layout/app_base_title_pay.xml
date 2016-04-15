@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/welcome_page"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/ipay_title_h"
+                android:background="@color/ipay_color_7" >
+
+    <RelativeLayout
+        android:id="@+id/title_bar_layout_back"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/halopay_ui_back_selector"
+        android:orientation="vertical"
+        android:paddingLeft="18px"
+        android:paddingRight="18px" >
+
+        <ImageView
+            android:id="@+id/iv_left_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12px"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_left_button_back"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_left_title_master"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ipay_color_1"
+                android:textSize="36px"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_left_title_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6px"
+                android:textColor="@color/ipay_color_3"
+                android:textSize="26px"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_right_activity_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/halopay_ui_back_selector"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/iv_right_activity_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30px"
+            android:src="@drawable/halopay_ui_more"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_right_activity_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:visibility="visible"
+            android:text="登录"
+            android:textColor="@color/ipay_color_1"
+            android:textSize="28px" >
+        </TextView>
+    </LinearLayout>
+
+</RelativeLayout>

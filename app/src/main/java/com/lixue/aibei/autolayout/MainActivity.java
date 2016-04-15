@@ -1,36 +1,35 @@
 package com.lixue.aibei.autolayout;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 
-import com.lixue.aibei.autolayout.fragment.ListFragment;
-import com.lixue.aibei.autolayout.fragment.PayFragment;
-import com.lixue.aibei.autolayout.fragment.RecyclerViewFragment;
-import com.lixue.aibei.autolayout.fragment.RecyclerViewGridFragment;
-import com.lixue.aibei.autolayout.fragment.RegisterFragment;
-import com.lixue.aibei.autolayoutlib.AutoFrameLayout;
 import com.lixue.aibei.autolayoutlib.AutoLayoutActivity;
-import com.lixue.aibei.autolayoutlib.utils.AutoLayoutHelper;
+import com.lixue.aibei.autolayoutlib.utils.AutoUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class MainActivity extends AutoLayoutActivity {
-    private ViewPager mViewPager;
-
+public class MainActivity extends AutoLayoutActivity implements View.OnClickListener{
+    private ListView mListView;
+    private List<String> mList;
+    private Button btn_next;
+    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setImmersionStatus();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_list);
 
         initView();
         initDatas();
@@ -47,36 +46,75 @@ public class MainActivity extends AutoLayoutActivity {
     }
 
     private void initView(){
-        mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
+        mListView = (ListView) findViewById(R.id.id_listview);
+        btn_next = (Button) findViewById(R.id.title_next);
+        btn_back = (ImageView) findViewById(R.id.title_leftimageview);
     }
 
     private void initDatas(){
-        ArrayList<Fragment> mList = new ArrayList<Fragment>();
-        mList.add(new ListFragment());
-        mList.add(new RegisterFragment());
-        mList.add(new PayFragment());
-        mList.add(new RecyclerViewFragment());
-        mList.add(new RecyclerViewGridFragment());
-        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager(), mList));
+        mList = new ArrayList<String>();
+        for (int i = 0; i < 50; i++) {
+            mList.add(i + "");
+        }
+        mListView.setAdapter(new MyAdapter());
+        btn_next.setOnClickListener(this);
+        btn_back.setOnClickListener(this);
     }
 
-    public class MyAdapter extends FragmentPagerAdapter {
-        ArrayList<Fragment> tabs = null;
-
-        public MyAdapter(FragmentManager fm, ArrayList<Fragment> tabs) {
-            super(fm);
-            this.tabs = tabs;
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id){
+            case R.id.title_next:
+                Intent intent = new Intent();
+                intent.setAction("com.lixue.android.regist");
+                startActivity(intent);
+                break;
+            case R.id.title_leftimageview:
+                finish();
+                break;
+            default:
+                break;
         }
+    }
 
-        @Override
-        public Fragment getItem(int pos) {
-            return tabs.get(pos);
-        }
+    class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return tabs.size();
+            return mList.size();
         }
+
+        @Override
+        public Object getItem(int arg0) {
+            return mList.get(arg0);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.list_item, parent, false);
+                convertView.setTag(holder);
+                /**对于listview，注意添加这一行，即可在item上使用高度**/
+                AutoUtils.autoSize(convertView);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            return convertView;
+        }
+
+    }
+
+    class ViewHolder {
+
     }
 
 }
