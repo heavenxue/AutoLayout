@@ -29,6 +29,7 @@ public class AutoUtils {
         autoSize(view);
         autoPadding(view);
         autoMargin(view);
+        autoTextSize(view, AutoAttr.BASE_DEFAULT);
     }
 
     /**

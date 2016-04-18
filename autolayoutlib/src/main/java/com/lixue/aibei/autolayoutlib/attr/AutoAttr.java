@@ -32,7 +32,7 @@ public abstract class AutoAttr {
     }
 
     public void apply(View view) {
-        boolean log = view.getTag() != null && view.getTag().toString().equals("auto");
+        boolean log = L.debug;
         if (log) {
             L.e("pxval = " + pxVal + "," + this.getClass().getSimpleName());
         }

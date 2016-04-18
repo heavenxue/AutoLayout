@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -8,61 +9,178 @@
 
     <include layout="@layout/app_base_title_pay"></include>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="142px"
-        android:paddingTop="20px"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
-        >
+        android:id="@+id/rl_feeinfo_aipay_up"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="122px"
-            android:background="@drawable/halopay_payhub_bg"
-            android:layout_marginLeft="20px"
-            android:layout_marginRight="20px"
-            android:layout_marginTop="20px"
+            android:layout_height="142px"
+            android:paddingTop="20px"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
             android:orientation="vertical"
-            android:gravity="center"
             >
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/tv_wares_name_aipay"
+                android:background="@drawable/halopay_payhub_bg"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginBottom="-2px"
+                >
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="测试商品"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:textColor="#1096c7"
-                    android:textSize="32px" />
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="20px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
+                    <TextView
+                        android:id="@+id/tv_wares_name_aipay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="customer service VIP"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textColor="#1096c7"
+                        android:textSize="32px" />
+
+                </LinearLayout>
+                <!-- 支付金额 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="8px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:id="@+id/tv_price_aipay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 100.00"
+                        android:textColor="#eb5353"
+                        android:textSize="34px" />
+
+                </LinearLayout>
             </LinearLayout>
-            <!-- 支付金额 -->
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="3px" android:background="#cdcdcd"/>
+        <LinearLayout
+            android:id="@+id/ll_feeinfo_aipay"
+            android:layout_width="fill_parent"
+            android:layout_height="142px"
+            android:background="@color/ipay_color_2_4"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:layout_marginTop="8px"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
-                <TextView
-                    android:id="@+id/tv_price_aipay"
+                >
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/halopay_icon_paytype_aibeibi"
+                    android:layout_marginRight="20px"
+                    />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:text="123"
-                    android:textColor="#eb5353"
-                    android:textSize="34px" />
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10px"
+                        >
+                        <TextView
+                            android:id="@+id/tv_hi_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Wallet"
+                            android:textColor="@color/ipay_color_6"
+                            android:textSize="32px" />
+                        <LinearLayout
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:id="@+id/img_helper"
+                            >
+                            <ImageView
+                                android:layout_width="30px"
+                                android:layout_height="30px"
+                                android:src="@drawable/halopay_icon_vc_helper"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <LinearLayout
+                            android:id="@+id/linear_logined"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+                            <TextView
+                                android:id="@+id/tv_halo_payhub_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="余额:30hi"
+                                android:textColor="@color/ipay_color_6"
+                                android:textSize="28px"
+                                />
+
+                            <TextView
+                                android:id="@+id/btn_charge"
+                                android:layout_width="70dip"
+                                android:layout_height="fill_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="20px"
+                                android:gravity="center"
+                                android:text="Top up"
+                                android:textColor="@color/ipay_color_7_5"
+                                android:textSize="28px"
+                                />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_tip_banlance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:textColor="@color/ipay_color_4"
+                            android:textSize="28px" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="68px"
+                android:maxWidth="110px"
+                android:text="支付"
+                android:layout_marginRight="20px"
+                android:background="@drawable/halopay_common_btn_bg_color"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:textSize="28px"
+                android:textColor="@color/ipay_color_1"
+                />
         </LinearLayout>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
-    <View android:layout_width="match_parent" android:layout_height="3px" android:background="#cdcdcd"/>
 </LinearLayout>

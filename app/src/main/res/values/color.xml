@@ -11,7 +11,6 @@
     <color name="theme">#ff00bfff</color>
     <color name="transparent">#00000000</color>
 
-    <resources>
 
         <!-- 基本色 -->
         <color name="transparent_75">#bf000000</color>
@@ -44,5 +43,4 @@
         <color name="halopay_topup_pressed">#0c9bd6</color>
         <color name="halopay_payhub_bg">#f8f8f8</color>
 
-    </resources>
 </resources>
