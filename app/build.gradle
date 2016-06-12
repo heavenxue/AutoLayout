@@ -25,4 +25,5 @@ dependencies {
     compile project(':autolayoutlib')
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'com.lixue.aibei:slidingtitlebarlib:1.0'
+    compile 'com.lixue.aibei:UniversalAdapterLib:1.0.1'
 }
