@@ -12,7 +12,9 @@
 ![github](https://github.com/heavenxue/AutoLayout/raw/master/doc/1.png "github")
 ![github](https://github.com/heavenxue/AutoLayout/raw/master/doc/1-.png "github")
 
-感谢![hongyangAndroid](https://github.com/hongyangAndroid/AndroidAutoLayout)
+感谢![](https://github.com/hongyangAndroid/AndroidAutoLayout)
+
+## 所做的修改
 
 * 去掉支持库
 * 加入开关
